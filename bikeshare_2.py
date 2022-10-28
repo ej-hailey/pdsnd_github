@@ -2,10 +2,12 @@ import time
 import pandas as pd
 import numpy as np
 
+# dictionary for cities and respective data files
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
+# set global variables
 city = ""
 month = ""
 day = ""
@@ -185,6 +187,8 @@ def user_stats(df):
 
     
 def display_data():
+    """Prompts users to view 5 rows of data from dataframe"""
+    
     view_data = str(input('Would you like to view 5 rows of individual trip data? Enter yes or no.')).lower()
     while view_data not in ['yes', 'no']:
         view_data = str(input('Please enter yes or no: ')).lower()
