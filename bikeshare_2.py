@@ -21,35 +21,37 @@ def get_filters():
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
+
     print('Hello! Let\'s explore some US bikeshare data!')
-    # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    print('\nFirst, let\'s enter the city name: ')
+    
+    # get user input for city (chicago, new york city, washington)
     global city
-    city = str(input()).lower()
+    city = str(input("First, let's enter the city name: ")).lower()
+    
+    # when user enters wrong parameter...
     while city not in CITY_DATA.keys():
-        print('Try again. Choose from Chicago, New York City, or Washington.')
-        print('Enter the city name: ')
-        city = str(input()).lower()
+        print("Try again. Choose from Chicago, New York City, or Washington.")
+        city = str(input("Enter the city name: ")).lower()
 
     # get user input for month (all, january, february, ... , june)
-    print('\nGreat! Now let\'s enter the month: ')
     global month
-    month = str(input()).lower()
+    month = str(input("Great! Now let's enter the month: ")).lower()
     months = ['january', 'february', 'march', 'april', 'may', 'june', 'all']
+
+    # when user enters wrong parameter...
     while month not in months:
-        print('Try again. Choose a month between January - June or "All".')
-        print('Enter a month or "all": ')
-        month = str(input()).lower()
+        print("Try again. Choose a month between January through June.")
+        month = str(input("Enter a month or 'all': ")).lower()
     
     # get user input for day of week (all, monday, tuesday, ... sunday)
-    print('\nFinally, let\'s enter the day of week: ')
     global day
-    day = str(input()).lower()
+    day = str(input("Finally, let's enter the day of week: ")).lower()
     days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'all']
+    
+    # when user enters wrong parameter...
     while day not in days:
-        print('Try again. Choose a day of week from Monday to Sunday or "All".')
-        print('Enter a day of week or "all": ')
-        day = str(input()).lower()
+        print("Try again. Choose a day of week. E.g. Monday")
+        day = str(input("Enter a day of week or 'all': ")).lower()
 
     print('-'*40)
     return city, month, day
@@ -141,7 +143,7 @@ def station_stats(df):
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
 
-    print('\nCalculating Trip Duration...\n')
+    print("\nCalculating Trip Duration...\n")
     start_time = time.time()
 
     # display total travel time
@@ -158,7 +160,7 @@ def trip_duration_stats(df):
 def user_stats(df):
     """Displays statistics on bikeshare users."""
 
-    print('\nCalculating User Stats...\n')
+    print("\nCalculating User Stats...\n")
     start_time = time.time()
 
     # Display counts of user types
@@ -172,7 +174,7 @@ def user_stats(df):
         for gender in genders:
             print(f"{gender} Count: {df['Gender'][df['Gender'] == user].count()}")
     else:
-        print('Gender stats cannot be calculated because Gender does not appear in the dataframe.')
+        print("Gender stats cannot be calculated because Gender does not appear in the dataframe.")
             
     # Display earliest, most recent, and most common year of birth
     if 'Birth Year' in df:
@@ -180,16 +182,20 @@ def user_stats(df):
         print(f"Most Recent Birth Year: {int(df['Birth Year'].max())}")
         print(f"Most Common Birth Year: {int(df['Birth Year'].mode())}")
     else:
-        print('Birth Year stats cannot be calculated because Birth Year does not appear in the dataframe.')
+        print("Birth Year stats cannot be calculated because Birth Year does not appear in the dataframe.")
         
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
     
 def display_data():
-    view_data = str(input('Would you like to view 5 rows of individual trip data? Enter yes or no.')).lower()
+    """Prompts users to view 5 rows of data from dataframe"""
+
+    view_data = str(input("Would you like to view 5 rows of individual trip data? (yes/no)")).lower()
+
+    # when user enters wrong parameter...
     while view_data not in ['yes', 'no']:
-        view_data = str(input('Please enter yes or no: ')).lower()
+        view_data = str(input("Please enter yes or no: ")).lower()
     start_loc = 0
     while view_data == 'yes':
         print(df.iloc[start_loc:start_loc+5])
@@ -206,7 +212,7 @@ def main():
         trip_duration_stats(df)
         user_stats(df)
 
-        restart = input('\nWould you like to restart? Enter yes or no.\n')
+        restart = input("\nWould you like to restart? Enter yes or no.\n")
         if restart.lower() != 'yes':
             break
 
